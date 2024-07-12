@@ -1,38 +1,25 @@
-import data from './data';
+import { BrowserRouter, Link, Route, Routes } from 'react-router-dom';
+import HomePage from './pages/HomePage';
+import ProductPage from './pages/ProductPage';
 
 function App() {
     return (
-        <div>
-            <header>
-                <a href="/">Amazona</a>
-            </header>
-            <main>
-                <h1>Featured Items</h1>
-                <div className="products">
-                    {data.products.map((product) => (
-                        <div className="product" key={product.slug}>
-                            <a href={`/product/${product.slug}`}>
-                                <div>
-                                    <img
-                                        src={product.image}
-                                        alt={product.name}
-                                    />
-                                </div>
-                            </a>
-                            <div className="product-info">
-                                <a href={`/product/${product.slug}`}>
-                                    <p>{product.name}</p>
-                                </a>
-                                <p>
-                                    <strong>${product.price} </strong>
-                                </p>
-                                <button>Add to cart</button>
-                            </div>
-                        </div>
-                    ))}
-                </div>
-            </main>
-        </div>
+        <BrowserRouter>
+            <div>
+                <header>
+                    <Link to="/">Amazona</Link>
+                </header>
+                <main>
+                    <Routes>
+                        <Route path="/" element={<HomePage />} />
+                        <Route
+                            path="/product/:slug"
+                            element={<ProductPage />}
+                        />
+                    </Routes>
+                </main>
+            </div>
+        </BrowserRouter>
     );
 }
 
