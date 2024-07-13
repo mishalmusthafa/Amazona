@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom';
 // import data from '../data';
 import axios from 'axios';
 import { useEffect } from 'react';
@@ -6,6 +5,7 @@ import { useReducer } from 'react';
 import Product from '../components/Product';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import { Helmet } from 'react-helmet-async';
 // import logger from 'use-reducer-logger';
 
 function reducer(state, action) {
@@ -43,6 +43,9 @@ function HomePage() {
 
     return (
         <div>
+            <Helmet>
+                <title>Amazona</title>
+            </Helmet>
             <h1>Featured Items</h1>
             <div className="products">
                 {loading ? (
