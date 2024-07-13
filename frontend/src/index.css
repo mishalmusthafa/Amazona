@@ -30,6 +30,16 @@ main {
     padding: 1rem;
 }
 
+.rating span {
+    color: #ffc000;
+}
+
+.btn-primary {
+    background-color: #f0c040;
+    color: #000;
+    border: none;
+}
+
 .site-contianer {
     min-height: 100vh;
 }

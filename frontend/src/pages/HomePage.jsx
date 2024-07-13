@@ -3,6 +3,9 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { useEffect } from 'react';
 import { useReducer } from 'react';
+import Product from '../components/Product';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 // import logger from 'use-reducer-logger';
 
 function reducer(state, action) {
@@ -47,27 +50,13 @@ function HomePage() {
                 ) : error ? (
                     <div>{error.message}</div>
                 ) : (
-                    products.map((product) => (
-                        <div className="product" key={product.slug}>
-                            <Link to={`/product/${product.slug}`}>
-                                <div>
-                                    <img
-                                        src={product.image}
-                                        alt={product.name}
-                                    />
-                                </div>
-                            </Link>
-                            <div className="product-info">
-                                <Link to={`/product/${product.slug}`}>
-                                    <p>{product.name}</p>
-                                </Link>
-                                <p>
-                                    <strong>${product.price} </strong>
-                                </p>
-                                <button>Add to cart</button>
-                            </div>
-                        </div>
-                    ))
+                    <Row>
+                        {products.map((product) => (
+                            <Col sm={6} md={4} lg={3} key={product.slug}>
+                                <Product product={product}></Product>
+                            </Col>
+                        ))}
+                    </Row>
                 )}
             </div>
         </div>
