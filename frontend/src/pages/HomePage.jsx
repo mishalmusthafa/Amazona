@@ -6,6 +6,9 @@ import Product from '../components/Product';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { Helmet } from 'react-helmet-async';
+import LoadingBox from '../components/LoadingBox';
+import MessageBox from '../components/MessageBox';
+import { getError } from '../utils';
 // import logger from 'use-reducer-logger';
 
 function reducer(state, action) {
@@ -35,7 +38,10 @@ function HomePage() {
                 const result = await axios.get('/api/products');
                 dispatch({ type: 'FETCH_SUCCESS', payload: result.data });
             } catch (error) {
-                dispatch({ type: 'FETCH_ERROR', payload: error });
+                dispatch({
+                    type: 'FETCH_FAIL',
+                    payload: getError(error.message),
+                });
             }
         };
         fetchData();
@@ -49,9 +55,9 @@ function HomePage() {
             <h1>Featured Items</h1>
             <div className="products">
                 {loading ? (
-                    <div>Loading...</div>
+                    <LoadingBox />
                 ) : error ? (
-                    <div>{error.message}</div>
+                    <MessageBox variant={'danger'}>{error}</MessageBox>
                 ) : (
                     <Row>
                         {products.map((product) => (

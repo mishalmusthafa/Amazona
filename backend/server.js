@@ -8,9 +8,9 @@ app.get('/api/products', (req, res) => {
 app.get('/api/products/slug/:slug', (req, res) => {
     const product = data.products.find((x) => x.slug === req.params.slug);
     if (product) {
-        return res.send(product);
+        res.send(product);
     } else {
-        return res.status(404).send({ message: 'Product not found' });
+        res.status(404).send({ message: 'Product not found' });
     }
 });
 

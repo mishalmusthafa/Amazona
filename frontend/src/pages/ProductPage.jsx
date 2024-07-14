@@ -10,6 +10,9 @@ import CardBody from 'react-bootstrap/esm/CardBody';
 import Button from 'react-bootstrap/esm/Button';
 import Rating from '../components/Rating';
 import { Helmet } from 'react-helmet-async';
+import LoadingBox from '../components/LoadingBox';
+import MessageBox from '../components/MessageBox';
+import { getError } from '../utils';
 
 function reducer(state, action) {
     switch (action.type) {
@@ -40,16 +43,20 @@ function ProductPage() {
                 const result = await axios.get(`/api/products/slug/${slug}`);
                 dispatch({ type: 'FETCH_SUCCESS', payload: result.data });
             } catch (error) {
-                dispatch({ type: 'FETCH_ERROR', payload: error });
+                console.log(error);
+                dispatch({
+                    type: 'FETCH_FAIL',
+                    payload: getError(error),
+                });
             }
         };
         fetchData();
     }, [slug]);
 
     return loading ? (
-        <div>Loading...</div>
+        <LoadingBox />
     ) : error ? (
-        <div>{error}</div>
+        <MessageBox variant={'danger'}>{error}</MessageBox>
     ) : (
         <div>
             <Helmet>
